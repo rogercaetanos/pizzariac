@@ -95,7 +95,12 @@ public class ProdutoController {
     public ResponseEntity<Object> deletarProduto(@PathVariable String id){
         try {
             produtoSevice.delete(Long.parseLong(id));
-            return ResponseEntity.ok("Produto com o id " + id + " deletado com sucesso.");
+            return ResponseEntity.ok().body (
+                    Map.of(
+                            "status", 200,
+                            "message", "Produto excluído com sucesso " + id
+                    )
+            );
         }
         catch (NumberFormatException e) {
             return ResponseEntity.badRequest().body(
